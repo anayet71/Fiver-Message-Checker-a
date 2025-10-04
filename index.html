@@ -288,6 +288,16 @@
         color: #00ffcc;
         line-height: 1.8;
         font-size: 0.95rem;
+        padding: 10px;
+        border: 1px solid rgba(0, 255, 204, 0.2);
+        border-radius: 20px;
+        margin: 5px;
+        display: inline-block  !important;
+       
+        gap: 20px;
+    }
+    .keywords-title p{
+        display: flex
     }
 
     .background-animation {
@@ -417,177 +427,187 @@
 
         <div class="keywords-section">
             <p class="keywords-title">**Forbidden Keywords:**</p>
-            <p class="keywords-list">Contact, Skype, Zoom, Whatsapp, Email, Messenger, Outside of Fiverr, I work in
-                other places besides Fiverr, pay, Payment, Paypal, Payoneer, Bank Account, Money, Credit card details,
-                Transferwise, Peopleperhour, Upwork, Freelancer .com, Positive Rating, Five Star, Negative Feedback</p>
+            <p>
+                <span class="keywords-list">Contact</span>
+                <span class="keywords-list">Skype</span>
+                <span class="keywords-list">Zoom</span>
+                <span class="keywords-list">Whatsapp</span>
+                <span class="keywords-list">Email</span>
+                <span class="keywords-list">Messenger</span>
+                <span class="keywords-list">Outside of Fiverr</span>
+                <span class="keywords-list">I work in other places besides Fiverr</span>
+                <span class="keywords-list">pay</span>
+                <span class="keywords-list">Payment</span>
+                <span class="keywords-list">Paypal</span>
+                <span class="keywords-list">Payoneer</span>
+                <span class="keywords-list">Bank Account</span>
+                <span class="keywords-list">Money</span>
+                <span class="keywords-list">Credit card details</span>
+                <span class="keywords-list">Transferwise</span>
+                <span class="keywords-list">Peopleperhour</span>
+                <span class="keywords-list">Upwork</span>
+                <span class="keywords-list">Freelancer .com</span>
+                <span class="keywords-list">Positive Rating</span>
+                <span class="keywords-list">Five Star</span>
+                <span class="keywords-list">Negative Feedback</span>
+            </p>
         </div>
     </div>
+
+
     <script>
-        // Smooth typing animation
-        const titleElement = document.getElementById('typingTitle');
-        const titleText = ' Fiverr Red Flag';
-        let charIndex = 0;
-        let isTyping = true;
+// Smooth typing animation
+const titleElement = document.getElementById('typingTitle');
+const titleText = ' Fiverr Red Flag';
+let charIndex = 0;
+let isTyping = true;
 
-        function typeWriter() {
-            if (isTyping) {
-                if (charIndex < titleText.length) {
-                    titleElement.textContent += titleText.charAt(charIndex);
-                    charIndex++;
-                    const speed = 50 + Math.random() * 100;
-                    setTimeout(typeWriter, speed);
-                } else {
-                    isTyping = false;
-                    setTimeout(() => {
-                        setTimeout(deleteText, 5000);
-                    }, 100);
-                }
-            }
+function typeWriter() {
+    if (isTyping) {
+        if (charIndex < titleText.length) {
+            titleElement.textContent += titleText.charAt(charIndex);
+            charIndex++;
+            const speed = 50 + Math.random() * 100;
+            setTimeout(typeWriter, speed);
+        } else {
+            isTyping = false;
+            setTimeout(() => {
+                setTimeout(deleteText, 5000);
+            }, 100);
         }
+    }
+}
 
-        function deleteText() {
-            if (charIndex > 0) {
-                titleElement.textContent = titleText.substring(0, charIndex - 1);
-                charIndex--;
-                setTimeout(deleteText, 30);
-            } else {
-                isTyping = true;
-                setTimeout(typeWriter, 500);
-            }
-        }
+function deleteText() {
+    if (charIndex > 0) {
+        titleElement.textContent = titleText.substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(deleteText, 30);
+    } else {
+        isTyping = true;
+        setTimeout(typeWriter, 500);
+    }
+}
 
-        typeWriter();
+typeWriter();
 
-        // Create floating particles
-        const particlesContainer = document.getElementById('particles');
-        for (let i = 0; i < 20; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-            particle.style.animationDelay = Math.random() * 10 + 's';
-            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-            particlesContainer.appendChild(particle);
-        }
+// Create floating particles
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 10 + 's';
+    particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    particlesContainer.appendChild(particle);
+}
 
-        // Message handling
-        const messageInput = document.getElementById('messageInput');
-        const submitBtn = document.getElementById('submitBtn');
-        const messageDisplay = document.getElementById('messageDisplay');
-        const messageContent = document.getElementById('messageContent');
+// Message handling
+const messageInput = document.getElementById('messageInput');
+const submitBtn = document.getElementById('submitBtn');
+const messageContent = document.getElementById('messageContent');
+const copyBtn = document.getElementById('copyBtn');
 
-        // Forbidden words list
-        const forbiddenWords = [
-            "Contact",
-            "Skype",
-            "Zoom",
-            "Whatsapp",
-            "Email",
-            "Messenger",
-            "Outside",
-            "Outside of Fiverr",
-            "I work in other places besides Fiverr",
-            "pay",
-            "Payment",
-            "Paypal",
-            "Payoneer",
-            "Bank Account",
-            "Money",
-            "Credit card details",
-            "Transferwise",
-            "Peopleperhour",
-            "Upwork",
-            "Freelancer.com",
-            "Positive Rating",
-            "Five Star",
-            "Negative Feedback",
-            "Telegram",
-            "Signal",
-            "WeChat",
-            "Viber",
-            "Line",
-            "Discord",
-            "Venmo",
-            "CashApp",
-            "Zelle",
-            "Wire Transfer",
-            "Western Union",
-            "Bitcoin",
-            "Cryptocurrency",
-            "Let’s talk outside",
-            "Off Fiverr",
-            "Outside platform",
-            "Contact me privately",
-            "Private chat",
-            "Review",
-            "Testimonial",
-            "Score",
-            "Feedback score",
-            "Hack",
-            "Crack",
-            "Illegal",
-            "Porn",
-            "Adult content"
-        ];
+// Forbidden words list
+const forbiddenWords = [
+    "Contact",
+    "Skype",
+    "Zoom",
+    "Whatsapp",
+    "Email",
+    "Messenger",
+    "Outside",
+    "Outside of Fiverr",
+    "I work in other places besides Fiverr",
+    "pay",
+    "Payment",
+    "Paypal",
+    "Payoneer",
+    "Bank Account",
+    "Money",
+    "Credit card details",
+    "Transferwise",
+    "Peopleperhour",
+    "Upwork",
+    "Freelancer.com",
+    "Positive Rating",
+    "Five Star",
+    "Negative Feedback",
+    "Telegram",
+    "Signal",
+    "WeChat",
+    "Viber",
+    "Line",
+    "Discord",
+    "Venmo",
+    "CashApp",
+    "Zelle",
+    "Wire Transfer",
+    "Western Union",
+    "Bitcoin",
+    "Cryptocurrency",
+    "Let’s talk outside",
+    "Off Fiverr",
+    "Outside platform",
+    "Contact me privately",
+    "Private chat",
+    "Review",
+    "Testimonial",
+    "Score",
+    "Feedback score",
+    "Hack",
+    "Crack",
+    "Illegal",
+    "Porn",
+    "Adult content"
+];
 
-        // Function to process message and highlight forbidden words
-        function processMessage(message) {
-            let processedMessage = message;
-
-            const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
-
-            sortedWords.forEach(word => {
-                const regex = new RegExp(`\\b${word}\\b`, 'gi');
-                processedMessage = processedMessage.replace(regex, (match) => {
-                    const spaced = match.split('').join('-');
-                    return `<span class="forbidden-word">${spaced}</span>`;
-                });
-            });
-
-            return processedMessage;
-        }
-
-        // Submit message
-        submitBtn.addEventListener('click', () => {
-            const message = messageInput.value.trim();
-
-            if (message) {
-                const processedMessage = processMessage(message);
-                messageContent.innerHTML = processedMessage;
-
-                submitBtn.textContent = 'TRANSMITTED';
-                setTimeout(() => {
-                    submitBtn.textContent = 'Initialize Transmission';
-                }, 2000);
-            } else {
-                alert('Please enter a message before transmitting.');
-            }
+// Function to process message and highlight forbidden words
+function processMessage(message) {
+    let processedMessage = message;
+    const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
+    sortedWords.forEach(word => {
+        const regex = new RegExp(`\\b${word}\\b`, 'gi');
+        processedMessage = processedMessage.replace(regex, (match) => {
+            const spaced = match.split('').join('-');
+            return `<span class="forbidden-word">${spaced}</span>`;
         });
+    });
+    return processedMessage;
+}
 
-        // Submit on Enter (with Shift+Enter for new line)
-        messageInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                submitBtn.click();
-            }
-        });
-        const copyBtn = document.getElementById('copyBtn');
+// Submit message
+submitBtn.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (message) {
+        const processedMessage = processMessage(message);
+        messageContent.innerHTML = processedMessage;
+        submitBtn.textContent = 'TRANSMITTED';
+        setTimeout(() => {
+            submitBtn.textContent = 'Initialize Transmission';
+        }, 2000);
+    } else {
+        alert('Please enter a message before transmitting.');
+    }
+});
 
-        copyBtn.addEventListener('click', () => {
-            const textToCopy = messageContent.innerText; // plain text, without HTML tags
-            if (!textToCopy) return;
+// Copy button functionality
+copyBtn.addEventListener('click', () => {
+    const textToCopy = messageContent.innerText; // plain text, without HTML tags
+    if (!textToCopy) return;
 
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                copyBtn.textContent = 'Copied!';
-                setTimeout(() => {
-                    copyBtn.textContent = 'Copy';
-                }, 1500);
-            }).catch(() => {
-                alert('Failed to copy text.');
-            });
-        });
-
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+        }, 1500);
+    }).catch(() => {
+        alert('Failed to copy text.');
+    });
+});        
     </script>
+
 </body>
 
 </html>
