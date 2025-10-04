@@ -1,15 +1,384 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiverr Red Flag Checker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap"
+        rel="stylesheet">
 </head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Rajdhani', sans-serif;
+        background: linear-gradient(to bottom, rgb(10, 40, 70), black);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1200px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+    }
+
+    .app-header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeInDown 0.8s ease;
+        min-height: 80px;
+    }
+
+    .app-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #00d4ff, #0099ff, #00ffcc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        letter-spacing: 3px;
+        margin-bottom: 10px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .app-title::after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        bottom: 0;
+        width: 3px;
+        height: 80%;
+        background: #00d4ff;
+        animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink {
+
+        0%,
+        49% {
+            opacity: 1;
+        }
+
+        50%,
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .app-subtitle {
+        color: #00d4ff;
+        font-size: 1rem;
+        font-weight: 300;
+        letter-spacing: 2px;
+        opacity: 0.8;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        height: 80vh;
+    }
+
+    .message-form {
+        background: rgba(10, 30, 50, 0.6);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 20px;
+        padding: 40px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2),
+            inset 0 0 40px rgba(0, 212, 255, 0.05);
+        animation: fadeInUp 0.8s ease;
+        position: relative;
+        overflow: hidden;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-form::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+        animation: shimmer 3s infinite;
+    }
+
+    .form-label {
+        display: block;
+        color: #00d4ff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+    }
+
+    .textarea-wrapper {
+        position: relative;
+        margin-bottom: 25px;
+        z-index: 1;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-textarea {
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 20, 40, 0.8);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 12px;
+        padding: 15px;
+        color: #00ffcc;
+        font-family: Arial, sans-serif;
+        font-size: 1rem;
+        resize: none;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+
+    .message-textarea:focus {
+        border-color: #00d4ff;
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
+            inset 0 0 15px rgba(0, 212, 255, 0.1);
+        background: rgba(0, 20, 40, 0.95);
+    }
+
+    .message-textarea::placeholder {
+        color: rgba(0, 255, 204, 0.4);
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #00d4ff, #0099ff);
+        border: none;
+        border-radius: 12px;
+        color: #000;
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .submit-btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover::before {
+        left: 100%;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .message-display {
+        width: 50%;
+        height: 80vh;
+        padding: 20px;
+        background: rgba(0, 20, 40, 0.6);
+        border: 2px solid rgba(0, 255, 204, 0.3);
+        border-radius: 12px;
+        animation: fadeIn 0.5s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .message-header {
+        color: #00ffcc;
+        font-weight: 600;
+        margin-bottom: 10px;
+        font-size: 1rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .message-content {
+        color: #00ffcc;
+        line-height: 1.6;
+        font-size: 1rem;
+        font-family: Arial, sans-serif;
+        word-wrap: break-word;
+        flex-grow: 1;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        padding: 15px;
+        background: rgba(0, 20, 40, 0.8);
+        border-radius: 12px;
+    }
+
+    .forbidden-word {
+        background: #ffcc00;
+        color: #000;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .keywords-section {
+        margin-top: 30px;
+        padding: 25px;
+        background: rgba(10, 30, 50, 0.6);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        animation: fadeInUp 1s ease;
+    }
+
+    .keywords-title {
+        color: #00d4ff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    .keywords-list {
+        color: #00ffcc;
+        line-height: 1.8;
+        font-size: 0.95rem;
+    }
+
+    .background-animation {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: #00d4ff;
+        border-radius: 50%;
+        animation: float 10s infinite;
+        opacity: 0.5;
+        box-shadow: 0 0 10px #00d4ff;
+    }
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0) translateX(0);
+        }
+
+        50% {
+            transform: translateY(-100px) translateX(50px);
+        }
+    }
+
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media (max-width: 600px) {
+        .app-title {
+            font-size: 2rem;
+        }
+
+        .content-wrapper {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .message-form,
+        .message-display {
+            width: 100%;
+            height: 40vh;
+        }
+    }
+</style>
+
 <body>
-        <div class="background-animation" id="particles"></div>
-    
+    <div class="background-animation" id="particles"></div>
+
     <div class="container">
         <div class="app-header">
             <h1 class="app-title" id="typingTitle"> Message Check For</h1>
@@ -20,11 +389,8 @@
             <div class="message-form">
                 <label class="form-label" for="messageInput">Transmit Message</label>
                 <div class="textarea-wrapper">
-                    <textarea 
-                        id="messageInput" 
-                        class="message-textarea" 
-                        placeholder="Enter your encrypted message..."
-                    ></textarea>
+                    <textarea id="messageInput" class="message-textarea"
+                        placeholder="Enter your encrypted message..."></textarea>
                 </div>
                 <button class="submit-btn" id="submitBtn">Initialize Transmission</button>
             </div>
@@ -34,12 +400,15 @@
                 <div class="message-content" id="messageContent"></div>
             </div>
         </div>
-        
+
         <div class="keywords-section">
             <p class="keywords-title">**Forbidden Keywords:**</p>
-            <p class="keywords-list">Contact, Skype, Zoom, Whatsapp, Email, Messenger, Outside of Fiverr, I work in other places besides Fiverr, pay, Payment, Paypal, Payoneer, Bank Account, Money, Credit card details, Transferwise, Peopleperhour, Upwork, Freelancer .com, Positive Rating, Five Star, Negative Feedback</p>
+            <p class="keywords-list">Contact, Skype, Zoom, Whatsapp, Email, Messenger, Outside of Fiverr, I work in
+                other places besides Fiverr, pay, Payment, Paypal, Payoneer, Bank Account, Money, Credit card details,
+                Transferwise, Peopleperhour, Upwork, Freelancer .com, Positive Rating, Five Star, Negative Feedback</p>
         </div>
     </div>
 
 </body>
+
 </html>
