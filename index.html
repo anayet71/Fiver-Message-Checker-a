@@ -45,7 +45,7 @@
         font-family: 'Orbitron', sans-serif;
         font-size: 2.5rem;
         font-weight: 900;
-        background: linear-gradient(135deg, #00d4ff, #0099ff, #00ffcc);
+        background: linear-gradient(135deg, #ff5100, #f34317, #ff2600);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -156,6 +156,8 @@
         resize: none;
         transition: all 0.3s ease;
         outline: none;
+        font-weight: 500;
+        line-height: 150%;
     }
 
     .message-textarea:focus {
@@ -225,6 +227,13 @@
         flex-direction: column;
     }
 
+    .message-display {
+        position: relative;
+        /* add this */
+        /* rest of existing styles */
+    }
+
+
     .message-header {
         color: #00ffcc;
         font-weight: 600;
@@ -249,8 +258,8 @@
     }
 
     .forbidden-word {
-        background: #ffcc00;
-        color: #000;
+        /* background: #4b4323; */
+        color: #d1b200;
         padding: 2px 6px;
         border-radius: 4px;
         font-weight: 600;
@@ -397,8 +406,13 @@
 
             <div class="message-display" id="messageDisplay">
                 <div class="message-header">✓ Transmission Received</div>
+                <button id="copyBtn" title="Copy Message"
+                    style="position:absolute; top:10px; right:10px; padding:6px 12px; background:#00d4ff; border:none; border-radius:6px; color:#000; font-weight:700; cursor:pointer; font-family: 'Orbitron', sans-serif; font-size:0.9rem; transition: background 0.3s ease;">
+                    Copy
+                </button>
                 <div class="message-content" id="messageContent"></div>
             </div>
+
         </div>
 
         <div class="keywords-section">
@@ -464,11 +478,56 @@
 
         // Forbidden words list
         const forbiddenWords = [
-            'Contact', 'Skype', 'Zoom', 'Whatsapp', 'Email', 'Messenger',
-            'Outside of Fiverr', 'I work in other places besides Fiverr',
-            'pay', 'Payment', 'Paypal', 'Payoneer', 'Bank Account', 'Money',
-            'Credit card details', 'Transferwise', 'Peopleperhour', 'Upwork',
-            'Freelancer .com', 'Positive Rating', 'Five Star', 'Negative Feedback'
+            "Contact",
+            "Skype",
+            "Zoom",
+            "Whatsapp",
+            "Email",
+            "Messenger",
+            "Outside",
+            "Outside of Fiverr",
+            "I work in other places besides Fiverr",
+            "pay",
+            "Payment",
+            "Paypal",
+            "Payoneer",
+            "Bank Account",
+            "Money",
+            "Credit card details",
+            "Transferwise",
+            "Peopleperhour",
+            "Upwork",
+            "Freelancer.com",
+            "Positive Rating",
+            "Five Star",
+            "Negative Feedback",
+            "Telegram",
+            "Signal",
+            "WeChat",
+            "Viber",
+            "Line",
+            "Discord",
+            "Venmo",
+            "CashApp",
+            "Zelle",
+            "Wire Transfer",
+            "Western Union",
+            "Bitcoin",
+            "Cryptocurrency",
+            "Let’s talk outside",
+            "Off Fiverr",
+            "Outside platform",
+            "Contact me privately",
+            "Private chat",
+            "Review",
+            "Testimonial",
+            "Score",
+            "Feedback score",
+            "Hack",
+            "Crack",
+            "Illegal",
+            "Porn",
+            "Adult content"
         ];
 
         // Function to process message and highlight forbidden words
@@ -512,6 +571,22 @@
                 submitBtn.click();
             }
         });
+        const copyBtn = document.getElementById('copyBtn');
+
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = messageContent.innerText; // plain text, without HTML tags
+            if (!textToCopy) return;
+
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 1500);
+            }).catch(() => {
+                alert('Failed to copy text.');
+            });
+        });
+
     </script>
 </body>
 
