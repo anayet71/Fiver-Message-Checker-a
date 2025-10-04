@@ -408,7 +408,111 @@
                 Transferwise, Peopleperhour, Upwork, Freelancer .com, Positive Rating, Five Star, Negative Feedback</p>
         </div>
     </div>
+    <script>
+        // Smooth typing animation
+        const titleElement = document.getElementById('typingTitle');
+        const titleText = ' Fiverr Red Flag';
+        let charIndex = 0;
+        let isTyping = true;
 
+        function typeWriter() {
+            if (isTyping) {
+                if (charIndex < titleText.length) {
+                    titleElement.textContent += titleText.charAt(charIndex);
+                    charIndex++;
+                    const speed = 50 + Math.random() * 100;
+                    setTimeout(typeWriter, speed);
+                } else {
+                    isTyping = false;
+                    setTimeout(() => {
+                        setTimeout(deleteText, 5000);
+                    }, 100);
+                }
+            }
+        }
+
+        function deleteText() {
+            if (charIndex > 0) {
+                titleElement.textContent = titleText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(deleteText, 30);
+            } else {
+                isTyping = true;
+                setTimeout(typeWriter, 500);
+            }
+        }
+
+        typeWriter();
+
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Message handling
+        const messageInput = document.getElementById('messageInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageDisplay = document.getElementById('messageDisplay');
+        const messageContent = document.getElementById('messageContent');
+
+        // Forbidden words list
+        const forbiddenWords = [
+            'Contact', 'Skype', 'Zoom', 'Whatsapp', 'Email', 'Messenger',
+            'Outside of Fiverr', 'I work in other places besides Fiverr',
+            'pay', 'Payment', 'Paypal', 'Payoneer', 'Bank Account', 'Money',
+            'Credit card details', 'Transferwise', 'Peopleperhour', 'Upwork',
+            'Freelancer .com', 'Positive Rating', 'Five Star', 'Negative Feedback'
+        ];
+
+        // Function to process message and highlight forbidden words
+        function processMessage(message) {
+            let processedMessage = message;
+
+            const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
+
+            sortedWords.forEach(word => {
+                const regex = new RegExp(`\\b${word}\\b`, 'gi');
+                processedMessage = processedMessage.replace(regex, (match) => {
+                    const spaced = match.split('').join('-');
+                    return `<span class="forbidden-word">${spaced}</span>`;
+                });
+            });
+
+            return processedMessage;
+        }
+
+        // Submit message
+        submitBtn.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+
+            if (message) {
+                const processedMessage = processMessage(message);
+                messageContent.innerHTML = processedMessage;
+
+                submitBtn.textContent = 'TRANSMITTED';
+                setTimeout(() => {
+                    submitBtn.textContent = 'Initialize Transmission';
+                }, 2000);
+            } else {
+                alert('Please enter a message before transmitting.');
+            }
+        });
+
+        // Submit on Enter (with Shift+Enter for new line)
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitBtn.click();
+            }
+        });
+    </script>
 </body>
 
 </html>
