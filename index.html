@@ -455,7 +455,7 @@
     </div>
 
 
-    <script>
+<!--     <script>
 // Smooth typing animation
 const titleElement = document.getElementById('typingTitle');
 const titleText = ' Fiverr Red Flag';
@@ -606,8 +606,182 @@ copyBtn.addEventListener('click', () => {
         alert('Failed to copy text.');
     });
 });        
-    </script>
+    </script> -->
 
+
+    <script>
+        // Smooth typing animation
+const titleElement = document.getElementById('typingTitle');
+const titleText = ' Fiverr Red Flag';
+let charIndex = 0;
+let isTyping = true;
+
+function typeWriter() {
+    if (isTyping) {
+        if (charIndex < titleText.length) {
+            titleElement.textContent += titleText.charAt(charIndex);
+            charIndex++;
+            const speed = 50 + Math.random() * 100;
+            setTimeout(typeWriter, speed);
+        } else {
+            isTyping = false;
+            setTimeout(() => {
+                setTimeout(deleteText, 5000);
+            }, 100);
+        }
+    }
+}
+
+function deleteText() {
+    if (charIndex > 0) {
+        titleElement.textContent = titleText.substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(deleteText, 30);
+    } else {
+        isTyping = true;
+        setTimeout(typeWriter, 500);
+    }
+}
+
+typeWriter();
+
+// Create floating particles
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.top = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 10 + 's';
+    particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+    particlesContainer.appendChild(particle);
+}
+
+// Message handling
+const messageInput = document.getElementById('messageInput');
+const submitBtn = document.getElementById('submitBtn');
+const messageContent = document.getElementById('messageContent');
+const copyBtn = document.getElementById('copyBtn');
+
+// Forbidden words list
+const forbiddenWords = [
+    "Contact",
+    "Skype",
+    "Zoom",
+    "Whatsapp",
+    "Email",
+    "Messenger",
+    "Outside",
+    "Outside of Fiverr",
+    "I work in other places besides Fiverr",
+    "pay",
+    "Payment",
+    "Paypal",
+    "Payoneer",
+    "Bank Account",
+    "Money",
+    "Credit card details",
+    "Transferwise",
+    "Peopleperhour",
+    "Upwork",
+    "Freelancer.com",
+    "Positive Rating",
+    "Five Star",
+    "Negative Feedback",
+    "Telegram",
+    "Signal",
+    "WeChat",
+    "Viber",
+    "Line",
+    "Discord",
+    "Venmo",
+    "CashApp",
+    "Zelle",
+    "Wire Transfer",
+    "Western Union",
+    "Bitcoin",
+    "Cryptocurrency",
+    "Let’s talk outside",
+    "Off Fiverr",
+    "Outside platform",
+    "Contact me privately",
+    "Private chat",
+    "Review",
+    "Testimonial",
+    "Score",
+    "Feedback score",
+    "Hack",
+    "Crack",
+    "Illegal",
+    "Porn",
+    "Adult content"
+];
+
+// Function to process message and highlight forbidden words and emails
+function processMessage(message) {
+    let processedMessage = message;
+
+    // Step 1: Detect and highlight email addresses
+    const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+    processedMessage = processedMessage.replace(emailRegex, (match) => {
+        const spaced = match.split('').join('-');
+        return `<span class="forbidden-word">${spaced}</span>`;
+    });
+
+    // Step 2: Detect and highlight forbidden words
+    const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
+    sortedWords.forEach(word => {
+        const regex = new RegExp(`\\b${word}\\b`, 'gi');
+        processedMessage = processedMessage.replace(regex, (match) => {
+            const spaced = match.split('').join('-');
+            return `<span class="forbidden-word">${spaced}</span>`;
+        });
+    });
+
+    return processedMessage;
+}
+
+// Live update on input
+messageInput.addEventListener('input', () => {
+    const message = messageInput.value.trim();
+    if (message) {
+        const processedMessage = processMessage(message);
+        messageContent.innerHTML = processedMessage;
+    } else {
+        messageContent.innerHTML = ''; // Clear output if input is empty
+    }
+});
+
+// Submit message
+submitBtn.addEventListener('click', () => {
+    const message = messageInput.value.trim();
+    if (message) {
+        const processedMessage = processMessage(message);
+        messageContent.innerHTML = processedMessage;
+        submitBtn.textContent = 'TRANSMITTED';
+        setTimeout(() => {
+            submitBtn.textContent = 'Initialize Transmission';
+        }, 2000);
+    } else {
+        alert('Please enter a message before transmitting.');
+    }
+});
+
+// Copy button functionality
+copyBtn.addEventListener('click', () => {
+    const textToCopy = messageContent.innerText; // plain text, without HTML tags
+    if (!textToCopy) return;
+
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+        }, 1500);
+    }).catch(() => {
+        alert('Failed to copy text.');
+    });
+});
+    </script>
 </body>
 
 </html>
