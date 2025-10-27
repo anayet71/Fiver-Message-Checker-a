@@ -8,399 +8,401 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap"
         rel="stylesheet">
-</head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Rajdhani', sans-serif;
-        background: linear-gradient(to bottom, rgb(10, 40, 70), black);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-        overflow-x: hidden;
-    }
-
-    .container {
-        max-width: 1200px;
-        width: 100%;
-        position: relative;
-        z-index: 1;
-    }
-
-    .app-header {
-        text-align: center;
-        margin-bottom: 40px;
-        animation: fadeInDown 0.8s ease;
-        min-height: 80px;
-    }
-
-    .app-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 2.5rem;
-        font-weight: 900;
-        background: linear-gradient(135deg, #ff5100, #f34317, #ff2600);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-        letter-spacing: 3px;
-        margin-bottom: 10px;
-        position: relative;
-        display: inline-block;
-    }
-
-    .app-title::after {
-        content: '';
-        position: absolute;
-        right: -5px;
-        bottom: 0;
-        width: 3px;
-        height: 80%;
-        background: #00d4ff;
-        animation: blink 0.7s infinite;
-    }
-
-    @keyframes blink {
-
-        0%,
-        49% {
-            opacity: 1;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        50%,
-        100% {
-            opacity: 0;
-        }
-    }
-
-    .app-subtitle {
-        color: #00d4ff;
-        font-size: 1rem;
-        font-weight: 300;
-        letter-spacing: 2px;
-        opacity: 0.8;
-    }
-
-    .content-wrapper {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        height: 80vh;
-    }
-
-    .message-form {
-        background: rgba(10, 30, 50, 0.6);
-        border: 2px solid rgba(0, 212, 255, 0.3);
-        border-radius: 20px;
-        padding: 40px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2),
-            inset 0 0 40px rgba(0, 212, 255, 0.05);
-        animation: fadeInUp 0.8s ease;
-        position: relative;
-        overflow: hidden;
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .message-form::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-        animation: shimmer 3s infinite;
-    }
-
-    .form-label {
-        display: block;
-        color: #00d4ff;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        position: relative;
-        z-index: 1;
-    }
-
-    .textarea-wrapper {
-        position: relative;
-        margin-bottom: 25px;
-        z-index: 1;
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .message-textarea {
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 20, 40, 0.8);
-        border: 2px solid rgba(0, 212, 255, 0.3);
-        border-radius: 12px;
-        padding: 15px;
-        color: #00ffcc;
-        font-family: Arial, sans-serif;
-        font-size: 1rem;
-        resize: none;
-        transition: all 0.3s ease;
-        outline: none;
-        font-weight: 500;
-        line-height: 150%;
-    }
-
-    .message-textarea:focus {
-        border-color: #00d4ff;
-        box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
-            inset 0 0 15px rgba(0, 212, 255, 0.1);
-        background: rgba(0, 20, 40, 0.95);
-    }
-
-    .message-textarea::placeholder {
-        color: rgba(0, 255, 204, 0.4);
-    }
-
-    .submit-btn {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #00d4ff, #0099ff);
-        border: none;
-        border-radius: 12px;
-        color: #000;
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-    }
-
-    .submit-btn::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transition: left 0.5s ease;
-    }
-
-    .submit-btn:hover::before {
-        left: 100%;
-    }
-
-    .submit-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6);
-    }
-
-    .submit-btn:active {
-        transform: translateY(0);
-    }
-
-    .message-display {
-        width: 50%;
-        height: 80vh;
-        padding: 20px;
-        background: rgba(0, 20, 40, 0.6);
-        border: 2px solid rgba(0, 255, 204, 0.3);
-        border-radius: 12px;
-        animation: fadeIn 0.5s ease;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .message-display {
-        position: relative;
-        /* add this */
-        /* rest of existing styles */
-    }
-
-
-    .message-header {
-        color: #00ffcc;
-        font-weight: 600;
-        margin-bottom: 10px;
-        font-size: 1rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-    }
-
-    .message-content {
-        color: #00ffcc;
-        line-height: 1.6;
-        font-size: 1rem;
-        font-family: Arial, sans-serif;
-        word-wrap: break-word;
-        flex-grow: 1;
-        overflow-y: auto;
-        white-space: pre-wrap;
-        padding: 15px;
-        background: rgba(0, 20, 40, 0.8);
-        border-radius: 12px;
-    }
-
-    .forbidden-word {
-        /* background: #4b4323; */
-        color: #d1b200;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 600;
-        letter-spacing: 1px;
-    }
-
-    .keywords-section {
-        margin-top: 30px;
-        padding: 25px;
-        background: rgba(10, 30, 50, 0.6);
-        border: 2px solid rgba(0, 212, 255, 0.3);
-        border-radius: 20px;
-        backdrop-filter: blur(10px);
-        animation: fadeInUp 1s ease;
-    }
-
-    .keywords-title {
-        color: #00d4ff;
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-        letter-spacing: 1px;
-    }
-
-    .keywords-list {
-        color: #00ffcc;
-        line-height: 1.8;
-        font-size: 0.95rem;
-        padding: 10px;
-        border: 1px solid rgba(0, 255, 204, 0.2);
-        border-radius: 20px;
-        margin: 5px;
-        display: inline-block  !important;
-       
-        gap: 20px;
-    }
-    .keywords-title p{
-        display: flex
-    }
-
-    .background-animation {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    .particle {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: #00d4ff;
-        border-radius: 50%;
-        animation: float 10s infinite;
-        opacity: 0.5;
-        box-shadow: 0 0 10px #00d4ff;
-    }
-
-    @keyframes float {
-
-        0%,
-        100% {
-            transform: translateY(0) translateX(0);
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(to bottom, rgb(10, 40, 70), black);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
-        50% {
-            transform: translateY(-100px) translateX(50px);
-        }
-    }
-
-    @keyframes fadeInDown {
-        from {
-            opacity: 0;
-            transform: translateY(-30px);
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
+        .app-header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+            min-height: 80px;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-
-        to {
-            opacity: 1;
-        }
-    }
-
-    @keyframes shimmer {
-        0% {
-            transform: rotate(0deg);
-        }
-
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    @media (max-width: 600px) {
         .app-title {
-            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff5100, #f34317, #ff2600);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .app-title::after {
+            content: '';
+            position: absolute;
+            right: -5px;
+            bottom: 0;
+            width: 3px;
+            height: 80%;
+            background: #00d4ff;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% {
+                opacity: 1;
+            }
+            50%, 100% {
+                opacity: 0;
+            }
+        }
+
+        .app-subtitle {
+            color: #00d4ff;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.8;
         }
 
         .content-wrapper {
-            flex-direction: column;
-            height: auto;
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            height: 80vh;
         }
 
-        .message-form,
-        .message-display {
-            width: 100%;
-            height: 40vh;
+        .message-form {
+            background: rgba(10, 30, 50, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2),
+                inset 0 0 40px rgba(0, 212, 255, 0.05);
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+            width: 50%;
+            display: flex;
+            flex-direction: column;
         }
-    }
-</style>
+
+        .message-form::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .form-label {
+            display: block;
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+
+        .textarea-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            z-index: 1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message-textarea {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 20, 40, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            color: #00ffcc;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            resize: none;
+            transition: all 0.3s ease;
+            outline: none;
+            font-weight: 500;
+            line-height: 150%;
+        }
+
+        .message-textarea:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
+                inset 0 0 15px rgba(0, 212, 255, 0.1);
+            background: rgba(0, 20, 40, 0.95);
+        }
+
+        .message-textarea::placeholder {
+            color: rgba(0, 255, 204, 0.4);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 212, 255, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .message-display {
+            width: 50%;
+            height: 80vh;
+            padding: 20px;
+            background: rgba(0, 20, 40, 0.6);
+            border: 2px solid rgba(0, 255, 204, 0.3);
+            border-radius: 12px;
+            animation: fadeIn 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .message-header {
+            color: #00ffcc;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .message-content {
+            color: #00ffcc;
+            line-height: 1.6;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+            word-wrap: break-word;
+            flex-grow: 1;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            padding: 15px;
+            background: rgba(0, 20, 40, 0.8);
+            border-radius: 12px;
+        }
+
+        .forbidden-word {
+            color: #d1b200;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .keywords-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: rgba(10, 30, 50, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease;
+        }
+
+        .keywords-title {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .keywords-list {
+            color: #00ffcc;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            padding: 10px;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block !important;
+            gap: 20px;
+        }
+
+        .keywords-title p {
+            display: flex;
+        }
+
+        .word-count, .char-count {
+            color: #00ffcc;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 10px;
+            text-align: right;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .warning-message {
+            color: #ff0000;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+            text-align: right;
+            letter-spacing: 1px;
+            display: none;
+        }
+
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00d4ff;
+            border-radius: 50%;
+            animation: float 10s infinite;
+            opacity: 0.5;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app-title {
+                font-size: 2rem;
+            }
+
+            .content-wrapper {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .message-form,
+            .message-display {
+                width: 100%;
+                height: 40vh;
+            }
+        }
+    </style>
+</head>
 
 <body>
     <div class="background-animation" id="particles"></div>
 
     <div class="container">
         <div class="app-header">
-            <h1 class="app-title" id="typingTitle"> Message Check For</h1>
+            <h1 class="app-title" id="typingTitle">Message Check For</h1>
             <p class="app-subtitle">QUANTUM MESSAGING SYSTEM</p>
         </div>
 
@@ -410,6 +412,9 @@
                 <div class="textarea-wrapper">
                     <textarea id="messageInput" class="message-textarea"
                         placeholder="Enter your encrypted message..."></textarea>
+                    <div class="word-count" id="wordCount">Word Count: 0</div>
+                    <div class="char-count" id="charCount">Character Count: 0</div>
+                    <div class="warning-message" id="warningMessage">Warning: Character count exceeds 2500!</div>
                 </div>
                 <button class="submit-btn" id="submitBtn">Initialize Transmission</button>
             </div>
@@ -422,7 +427,6 @@
                 </button>
                 <div class="message-content" id="messageContent"></div>
             </div>
-
         </div>
 
         <div class="keywords-section">
@@ -454,333 +458,165 @@
         </div>
     </div>
 
-
-<!--     <script>
-// Smooth typing animation
-const titleElement = document.getElementById('typingTitle');
-const titleText = ' Fiverr Red Flag';
-let charIndex = 0;
-let isTyping = true;
-
-function typeWriter() {
-    if (isTyping) {
-        if (charIndex < titleText.length) {
-            titleElement.textContent += titleText.charAt(charIndex);
-            charIndex++;
-            const speed = 50 + Math.random() * 100;
-            setTimeout(typeWriter, speed);
-        } else {
-            isTyping = false;
-            setTimeout(() => {
-                setTimeout(deleteText, 5000);
-            }, 100);
-        }
-    }
-}
-
-function deleteText() {
-    if (charIndex > 0) {
-        titleElement.textContent = titleText.substring(0, charIndex - 1);
-        charIndex--;
-        setTimeout(deleteText, 30);
-    } else {
-        isTyping = true;
-        setTimeout(typeWriter, 500);
-    }
-}
-
-typeWriter();
-
-// Create floating particles
-const particlesContainer = document.getElementById('particles');
-for (let i = 0; i < 20; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 10 + 's';
-    particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-    particlesContainer.appendChild(particle);
-}
-
-// Message handling
-const messageInput = document.getElementById('messageInput');
-const submitBtn = document.getElementById('submitBtn');
-const messageContent = document.getElementById('messageContent');
-const copyBtn = document.getElementById('copyBtn');
-
-// Forbidden words list
-const forbiddenWords = [
-    "Contact",
-    "Skype",
-    "Zoom",
-    "Whatsapp",
-    "Email",
-    "Messenger",
-    "Outside",
-    "Outside of Fiverr",
-    "I work in other places besides Fiverr",
-    "pay",
-    "Payment",
-    "Paypal",
-    "Payoneer",
-    "Bank Account",
-    "Money",
-    "Credit card details",
-    "Transferwise",
-    "Peopleperhour",
-    "Upwork",
-    "Freelancer.com",
-    "Positive Rating",
-    "Five Star",
-    "Negative Feedback",
-    "Telegram",
-    "Signal",
-    "WeChat",
-    "Viber",
-    "Line",
-    "Discord",
-    "Venmo",
-    "CashApp",
-    "Zelle",
-    "Wire Transfer",
-    "Western Union",
-    "Bitcoin",
-    "Cryptocurrency",
-    "Let’s talk outside",
-    "Off Fiverr",
-    "Outside platform",
-    "Contact me privately",
-    "Private chat",
-    "Review",
-    "Testimonial",
-    "Score",
-    "Feedback score",
-    "Hack",
-    "Crack",
-    "Illegal",
-    "Porn",
-    "Adult content"
-];
-
-// Function to process message and highlight forbidden words
-function processMessage(message) {
-    let processedMessage = message;
-    const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
-    sortedWords.forEach(word => {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        processedMessage = processedMessage.replace(regex, (match) => {
-            const spaced = match.split('').join('-');
-            return `<span class="forbidden-word">${spaced}</span>`;
-        });
-    });
-    return processedMessage;
-}
-
-// Submit message
-submitBtn.addEventListener('click', () => {
-    const message = messageInput.value.trim();
-    if (message) {
-        const processedMessage = processMessage(message);
-        messageContent.innerHTML = processedMessage;
-        submitBtn.textContent = 'TRANSMITTED';
-        setTimeout(() => {
-            submitBtn.textContent = 'Initialize Transmission';
-        }, 2000);
-    } else {
-        alert('Please enter a message before transmitting.');
-    }
-});
-
-// Copy button functionality
-copyBtn.addEventListener('click', () => {
-    const textToCopy = messageContent.innerText; // plain text, without HTML tags
-    if (!textToCopy) return;
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = 'Copy';
-        }, 1500);
-    }).catch(() => {
-        alert('Failed to copy text.');
-    });
-});        
-    </script> -->
-
-
     <script>
         // Smooth typing animation
-const titleElement = document.getElementById('typingTitle');
-const titleText = ' Fiverr Red Flag';
-let charIndex = 0;
-let isTyping = true;
+        const titleElement = document.getElementById('typingTitle');
+        const titleText = ' Fiverr Red Flag';
+        let charIndex = 0;
+        let isTyping = true;
 
-function typeWriter() {
-    if (isTyping) {
-        if (charIndex < titleText.length) {
-            titleElement.textContent += titleText.charAt(charIndex);
-            charIndex++;
-            const speed = 50 + Math.random() * 100;
-            setTimeout(typeWriter, speed);
-        } else {
-            isTyping = false;
-            setTimeout(() => {
-                setTimeout(deleteText, 5000);
-            }, 100);
+        function typeWriter() {
+            if (isTyping) {
+                if (charIndex < titleText.length) {
+                    titleElement.textContent += titleText.charAt(charIndex);
+                    charIndex++;
+                    const speed = 50 + Math.random() * 100;
+                    setTimeout(typeWriter, speed);
+                } else {
+                    isTyping = false;
+                    setTimeout(() => {
+                        setTimeout(deleteText, 5000);
+                    }, 100);
+                }
+            }
         }
-    }
-}
 
-function deleteText() {
-    if (charIndex > 0) {
-        titleElement.textContent = titleText.substring(0, charIndex - 1);
-        charIndex--;
-        setTimeout(deleteText, 30);
-    } else {
-        isTyping = true;
-        setTimeout(typeWriter, 500);
-    }
-}
+        function deleteText() {
+            if (charIndex > 0) {
+                titleElement.textContent = titleText.substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(deleteText, 30);
+            } else {
+                isTyping = true;
+                setTimeout(typeWriter, 500);
+            }
+        }
 
-typeWriter();
+        typeWriter();
 
-// Create floating particles
-const particlesContainer = document.getElementById('particles');
-for (let i = 0; i < 20; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    particle.style.animationDelay = Math.random() * 10 + 's';
-    particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
-    particlesContainer.appendChild(particle);
-}
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+            particlesContainer.appendChild(particle);
+        }
 
-// Message handling
-const messageInput = document.getElementById('messageInput');
-const submitBtn = document.getElementById('submitBtn');
-const messageContent = document.getElementById('messageContent');
-const copyBtn = document.getElementById('copyBtn');
+        // Message handling
+        const messageInput = document.getElementById('messageInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const messageContent = document.getElementById('messageContent');
+        const copyBtn = document.getElementById('copyBtn');
+        const wordCountDisplay = document.getElementById('wordCount');
+        const charCountDisplay = document.getElementById('charCount');
+        const warningMessage = document.getElementById('warningMessage');
 
-// Forbidden words list
-const forbiddenWords = [
-    "Contact",
-    "Skype",
-    "Zoom",
-    "Whatsapp",
-    "Email",
-    "Messenger",
-    "Outside",
-    "Outside of Fiverr",
-    "I work in other places besides Fiverr",
-    "pay",
-    "Payment",
-    "Paypal",
-    "Payoneer",
-    "Bank Account",
-    "Money",
-    "Credit card details",
-    "Transferwise",
-    "Peopleperhour",
-    "Upwork",
-    "Freelancer.com",
-    "Positive Rating",
-    "Five Star",
-    "Negative Feedback",
-    "Telegram",
-    "Signal",
-    "WeChat",
-    "Viber",
-    "Line",
-    "Discord",
-    "Venmo",
-    "CashApp",
-    "Zelle",
-    "Wire Transfer",
-    "Western Union",
-    "Bitcoin",
-    "Cryptocurrency",
-    "Let’s talk outside",
-    "Off Fiverr",
-    "Outside platform",
-    "Contact me privately",
-    "Private chat",
-    "Review",
-    "Testimonial",
-    "Score",
-    "Feedback score",
-    "Hack",
-    "Crack",
-    "Illegal",
-    "Porn",
-    "Adult content"
-];
+        // Forbidden words list
+        const forbiddenWords = [
+            "Contact", "Skype", "Zoom", "Whatsapp", "Email", "Messenger", "Outside",
+            "Outside of Fiverr", "I work in other places besides Fiverr", "pay", "Payment",
+            "Paypal", "Payoneer", "Bank Account", "Money", "Credit card details", "Transferwise",
+            "Peopleperhour", "Upwork", "Freelancer.com", "Positive Rating", "Five Star",
+            "Negative Feedback", "Telegram", "Signal", "WeChat", "Viber", "Line", "Discord",
+            "Venmo", "CashApp", "Zelle", "Wire Transfer", "Western Union", "Bitcoin",
+            "Cryptocurrency", "Let’s talk outside", "Off Fiverr", "Outside platform",
+            "Contact me privately", "Private chat", "Review", "Testimonial", "Score",
+            "Feedback score", "Hack", "Crack", "Illegal", "Porn", "Adult content"
+        ];
 
-// Function to process message and highlight forbidden words and emails
-function processMessage(message) {
-    let processedMessage = message;
+        // Function to count words
+        function countWords(text) {
+            const trimmedText = text.trim();
+            if (!trimmedText) return 0;
+            return trimmedText.split(/\s+/).length;
+        }
 
-    // Step 1: Detect and highlight email addresses
-    const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
-    processedMessage = processedMessage.replace(emailRegex, (match) => {
-        const spaced = match.split('').join('-');
-        return `<span class="forbidden-word">${spaced}</span>`;
-    });
+        // Function to count characters (including spaces and punctuation)
+        function countCharacters(text) {
+            return text.length;
+        }
 
-    // Step 2: Detect and highlight forbidden words
-    const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
-    sortedWords.forEach(word => {
-        const regex = new RegExp(`\\b${word}\\b`, 'gi');
-        processedMessage = processedMessage.replace(regex, (match) => {
-            const spaced = match.split('').join('-');
-            return `<span class="forbidden-word">${spaced}</span>`;
+        // Function to process message and highlight forbidden words and emails
+        function processMessage(message) {
+            let processedMessage = message;
+
+            // Step 1: Detect and highlight email addresses
+            const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+            processedMessage = processedMessage.replace(emailRegex, (match) => {
+                const spaced = match.split('').join('-');
+                return `<span class="forbidden-word">${spaced}</span>`;
+            });
+
+            // Step 2: Detect and highlight forbidden words
+            const sortedWords = [...forbiddenWords].sort((a, b) => b.length - a.length);
+            sortedWords.forEach(word => {
+                const regex = new RegExp(`\\b${word}\\b`, 'gi');
+                processedMessage = processedMessage.replace(regex, (match) => {
+                    const spaced = match.split('').join('-');
+                    return `<span class="forbidden-word">${spaced}</span>`;
+                });
+            });
+
+            return processedMessage;
+        }
+
+        // Live update on input
+        messageInput.addEventListener('input', () => {
+            const message = messageInput.value;
+            // Update word count
+            const wordCount = countWords(message);
+            wordCountDisplay.textContent = `Word Count: ${wordCount}`;
+            // Update character count
+            const charCount = countCharacters(message);
+            charCountDisplay.textContent = `Character Count: ${charCount}`;
+            // Show/hide warning message
+            if (charCount > 2500) {
+                warningMessage.style.display = 'block';
+            } else {
+                warningMessage.style.display = 'none';
+            }
+            // Process and display message
+            if (message.trim()) {
+                const processedMessage = processMessage(message);
+                messageContent.innerHTML = processedMessage;
+            } else {
+                messageContent.innerHTML = ''; // Clear output if input is empty
+            }
         });
-    });
 
-    return processedMessage;
-}
+        // Submit message
+        submitBtn.addEventListener('click', () => {
+            const message = messageInput.value.trim();
+            if (message) {
+                const processedMessage = processMessage(message);
+                messageContent.innerHTML = processedMessage;
+                submitBtn.textContent = 'TRANSMITTED';
+                setTimeout(() => {
+                    submitBtn.textContent = 'Initialize Transmission';
+                }, 2000);
+            } else {
+                alert('Please enter a message before transmitting.');
+            }
+        });
 
-// Live update on input
-messageInput.addEventListener('input', () => {
-    const message = messageInput.value.trim();
-    if (message) {
-        const processedMessage = processMessage(message);
-        messageContent.innerHTML = processedMessage;
-    } else {
-        messageContent.innerHTML = ''; // Clear output if input is empty
-    }
-});
+        // Copy button functionality
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = messageContent.innerText; // plain text, without HTML tags
+            if (!textToCopy) return;
 
-// Submit message
-submitBtn.addEventListener('click', () => {
-    const message = messageInput.value.trim();
-    if (message) {
-        const processedMessage = processMessage(message);
-        messageContent.innerHTML = processedMessage;
-        submitBtn.textContent = 'TRANSMITTED';
-        setTimeout(() => {
-            submitBtn.textContent = 'Initialize Transmission';
-        }, 2000);
-    } else {
-        alert('Please enter a message before transmitting.');
-    }
-});
-
-// Copy button functionality
-copyBtn.addEventListener('click', () => {
-    const textToCopy = messageContent.innerText; // plain text, without HTML tags
-    if (!textToCopy) return;
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => {
-            copyBtn.textContent = 'Copy';
-        }, 1500);
-    }).catch(() => {
-        alert('Failed to copy text.');
-    });
-});
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 1500);
+            }).catch(() => {
+                alert('Failed to copy text.');
+            });
+        });
     </script>
 </body>
 
