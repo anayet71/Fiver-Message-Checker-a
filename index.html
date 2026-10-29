@@ -350,9 +350,21 @@
             width: 12px;
         }
 
-        /* Scrollbar background */
+        /* Scrollbar track */
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #030b13;
+        }
+
+        /* Scrollbar thumb */
+        ::-webkit-scrollbar-thumb {
+            background: #00d4ff;
+            border-radius: 10px;
+            border: 3px solid #030b13;
+        }
+
+        /* Scrollbar thumb hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00aacc;
         }
 
         @keyframes float {
